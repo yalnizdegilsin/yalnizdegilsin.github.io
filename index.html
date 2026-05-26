@@ -30,9 +30,27 @@ body{
 
 <div class="yazi">YAKINDA</div>
 
-<audio autoplay loop>
+<audio id="bgmusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+window.addEventListener('load', () => {
+    const music = document.getElementById('bgmusic');
+
+    music.volume = 1;
+
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            document.body.addEventListener('click', () => {
+                music.play();
+            }, { once: true });
+        });
+    }
+});
+</script>
 
 </body>
 </html>
